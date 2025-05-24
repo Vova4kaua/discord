@@ -2,11 +2,27 @@ import discord
 from discord.ext import commands, tasks
 import asyncio
 import os
+from flask import Flask
+from threading import Thread
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='/', intents=intents)
 
 OWNER_ID = 123456789012345678  # замените на свой ID
+
+# Flask keep-alive
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "✅ Бот працює!"
+
+def run():
+    app.run(host='0.0.0.0', port=8080)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
 
 @bot.event
 async def on_ready():
@@ -139,4 +155,5 @@ async def avatar(ctx, member: discord.Member = None):
     member = member or ctx.author
     await ctx.send(member.avatar.url)
 
+keep_alive()
 bot.run(os.getenv("DISCORD_TOKEN"))
