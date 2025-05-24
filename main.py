@@ -8,7 +8,7 @@ from threading import Thread
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='/', intents=intents)
 
-OWNER_ID = 123456789012345678  # замените на свой ID
+OWNER_ID = 932672306411601970 # замените на свой ID
 
 # Flask keep-alive
 app = Flask('')
